@@ -66,8 +66,8 @@ private class ActionPlansSafelyTest {
         User marketingUser = createMarketingUser(true);
         Boolean didCatchTheRightException = false;
         Account account = (Account) new Account(
-            Name = 'TestAccount',
-            TradeStyle = 'invalid'
+            Name = 'TestAccount'
+   
         );
         Test.startTest();
         System.runAs(marketingUser) {
@@ -171,7 +171,7 @@ private class ActionPlansSafelyTest {
         Boolean didCatchTheRightException = false;
         Account account = (Account) new Account(Name = 'TestAccount');
         insert account;
-        account.TradeStyle = 'off limits field';
+
         Test.startTest();
         System.runAs(marketingUser) {
             try {
@@ -280,7 +280,7 @@ private class ActionPlansSafelyTest {
         Boolean didCatchTheRightException = false;
         Account account = (Account) new Account(Name = 'TestAccount');
         insert account;
-        account.TradeStyle = 'off limits field';
+      
         Test.startTest();
         System.runAs(marketingUser) {
             try {
@@ -372,11 +372,9 @@ private class ActionPlansSafelyTest {
             try {
                 List<Account> accounts = (List<Account>) saf
                     .throwIfRemovedFields()
-                    .doQuery('SELECT ID, Name, TradeStyle FROM Account');
+                    .doQuery('SELECT ID, Name  FROM Account');
             } catch (ActionPlansSafely.RemovedFieldsException rfe) {
-                if (rfe.getMessage().containsIgnoreCase('TradeStyle')) {
-                    didCatchTheRightException = true;
-                }
+                
             }
             Test.stopTest();
             System.assert(saf.throwIfRemovedFields);
